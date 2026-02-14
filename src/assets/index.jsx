@@ -2,8 +2,7 @@ import arrow from "./image/arrow.jpg"
 import logo from "./image/imz.jpg"
 import cm from "./image/cm.jpg"
 import flag from "./image/india-flag.jpg"
-import utube from "./image/youtube.jpg"
 import sunil from "./image/sunil.jpeg"
 import alok from "./image/alok.jpg"
 
-export {arrow,logo,cm,flag,utube,sunil,alok};
+export {arrow,logo,cm,flag,sunil,alok};
