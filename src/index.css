@@ -20,14 +20,19 @@
 
 /* Vertical Scroll Animation */
 @keyframes scroll-up {
-  0% { transform: translateY(1000%); }   /* start from bottom */
-  100% { transform: translateY(-100%); } /* scroll to top */
+  0% { 
+    transform: translateY(100%); 
+  }
+  100% { 
+    transform: translateY(-100%); 
+  }
 }
 
 .animate-scroll-up {
-  animation: scroll-up 10s linear infinite;
+  animation: scroll-up 40s linear infinite;
 }
 
 .animate-scroll-up.paused {
   animation-play-state: paused;
 }
+

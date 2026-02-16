@@ -20,10 +20,10 @@ import EditNews from './Pages/EditNews.jsx'
 import { sunil } from "./assets/index.jsx";
 
 const adData = {
-  title: "घर बैठे सरकारी नौकरी की तैयारी शुरू करें – आज ही ऑर्डर करें!",
-  description: "ABC कोचिंग से प्राप्त करें सबसे अच्छी नोट्स और किताबें। अपनी तैयारी आज से शुरू करें और सफलता की ओर कदम बढ़ाएं।",
+  title: "Education Spaces – जानकारी में आगे, हर कदम पर।।",
+  description: "आज ही हमारे चैनल से जुड़ें! 📢Education Spaces शिक्षा जगत की ताज़ा और ब्रेकिंग खबरे सबसे पहले पहुंचाता है। हमें फॉलो करें और हर अपडेट से आगे रहें!",
   imageUrl: sunil,
-  link: "https://coachingwebsite.com"
+  link: "https://www.youtube.com/@educationspaces"
 };
 function App() {
   const [count, setCount] = useState(0)
