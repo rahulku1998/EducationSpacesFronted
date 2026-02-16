@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function DynamicPromo({ ad }) {
   const [show, setShow] = useState(true); // testing ke liye hamesha show
@@ -8,26 +8,32 @@ export default function DynamicPromo({ ad }) {
   if (!show || !ad) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl md:max-w-3xl lg:max-w-4xl p-6 md:p-10">
-        
+    // Background overlay, click karne se modal close ho jaye
+    <div
+      className="fixed inset-0 bg-black/60 flex items-center justify-center z-[1000] p-4"
+      onClick={handleClose} // background tap se close
+    >
+      <div
+        className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl md:max-w-3xl lg:max-w-4xl p-6 md:p-10"
+        onClick={(e) => e.stopPropagation()} // content pe click se close na ho
+      >
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 text-red-600 text-3xl font-bold hover:text-red-800"
+          className="absolute top-4 md:top-6 right-4 text-red-600 text-4xl font-bold p-2 hover:text-red-800"
+          style={{ paddingTop: "env(safe-area-inset-top)" }} // notch ke liye safe area
         >
           ✕
         </button>
 
         {/* Content Flex */}
         <div className="flex flex-col md:flex-row items-center gap-6">
-          
           {/* Ad Image */}
           {ad.imageUrl && (
             <img
               src={ad.imageUrl}
               alt={ad.title}
-              className="w-full md:w-1/2 h-64 md:h-72 object-cover  rounded-2xl"
+              className="w-full md:w-1/2 h-64 md:h-72 object-cover rounded-2xl"
             />
           )}
 
@@ -47,7 +53,6 @@ export default function DynamicPromo({ ad }) {
               </a>
             )}
           </div>
-
         </div>
       </div>
     </div>
