@@ -23,7 +23,7 @@ const Register = () => {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${import.meta.env.VITE_API_BASE_URL}/auth/register`,
         form
       );
       alert("Registered successfully");
