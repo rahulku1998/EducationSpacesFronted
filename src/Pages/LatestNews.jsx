@@ -6,6 +6,7 @@ const LatestNews = () => {
   const [newsData, setNewsData] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // ✅ search by title
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const role = localStorage.getItem("role");
   const isAdmin = role?.toLowerCase() === "admin";
@@ -13,10 +14,14 @@ const LatestNews = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
+         setLoading(true);
         const res = await getAllNews();
         setNewsData(res.data.data); // backend returns { success, data }
       } catch (error) {
         console.error("Failed to load news", error);
+      }
+      finally {
+        setLoading(false);
       }
     };
 
@@ -62,7 +67,9 @@ const LatestNews = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {filteredNews.length ? (
+        {loading ? ( <div className="col-span-full text-center py-10">
+    <div className="animate-pulse">Loading news...</div>
+  </div>):filteredNews.length ? (
           filteredNews.map((news) => (
             <div
               key={news._id}

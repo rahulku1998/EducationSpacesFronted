@@ -4,25 +4,23 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL + "/whats-new",
 });
 
-// 🔐 Token automatically attach
-API.interceptors.request.use((req) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    req.headers.Authorization = `Bearer ${token}`;
-  }
-  return req;
-});
-
 // GET - public
 export const getWhatsNew = () => API.get("/");
 
 // POST - admin only
-export const createWhatsNew = (data) => API.post("/", data);
+export const createWhatsNew = (data) =>
+  API.post("/", data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
 
 // UPDATE - admin only
 export const updateWhatsNew = (id, data) =>
-  API.put(`/${id}`, data);
+  API.put(`/${id}`, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
 
 // DELETE - admin only
 export const deleteWhatsNew = (id) =>
-  API.delete(`/${id}`);
+  API.delete(`/${id}`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });

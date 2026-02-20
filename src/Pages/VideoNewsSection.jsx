@@ -10,6 +10,7 @@ const VideoNewsSection = () => {
   const [videos, setVideos] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingVideo, setEditingVideo] = useState(null);
+  const[loading, setLoading] = useState(true);
 
   const [title, setTitle] = useState("");
   const [videoUrl, setVideoUrl] = useState("");
@@ -24,10 +25,13 @@ const VideoNewsSection = () => {
 
   const fetchVideos = async () => {
     try {
+      setLoading(true);
       const res = await getVideos();
       setVideos(res.data.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,59 +116,65 @@ const VideoNewsSection = () => {
         </div>
 
         <div className="flex flex-wrap gap-4">
-          {filteredVideos.length ? (
-            filteredVideos.map((video) => {
-              const youtubeId = extractYouTubeId(video.videoUrl);
+  {loading ? (
+    <p className="text-center w-full py-6 text-lg">
+      Loading videos...
+    </p>
+  ) : filteredVideos.length ? (
+    filteredVideos.map((video) => {
+      const youtubeId = extractYouTubeId(video.videoUrl);
 
-              return (
-                <div
-                  key={video._id}
-                  className="w-full sm:w-80 border-2 border-blue-500 p-2"
-                >
-                  {youtubeId ? (
-                    <iframe
-                      className="w-full h-56"
-                      src={`https://www.youtube.com/embed/${youtubeId}`}
-                      title={video.title}
-                      allowFullScreen
-                    />
-                  ) : (
-                    <p className="text-red-500">Invalid YouTube Link</p>
-                  )}
-
-                  <a
-                    href={video.videoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block mt-2 text-center font-semibold"
-                  >
-                    {video.title}
-                  </a>
-
-                  {isAdmin && (
-                    <div className="flex justify-between mt-3">
-                      <button
-                        onClick={() => openEdit(video)}
-                        className="bg-blue-500 text-white px-3 py-1 rounded"
-                      >
-                        Edit
-                      </button>
-
-                      <button
-                        onClick={() => handleDelete(video._id)}
-                        className="bg-red-500 text-white px-3 py-1 rounded"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            })
+      return (
+        <div
+          key={video._id}
+          className="w-full sm:w-80 border-2 border-blue-500 p-2"
+        >
+          {youtubeId ? (
+            <iframe
+              className="w-full h-56"
+              src={`https://www.youtube.com/embed/${youtubeId}`}
+              title={video.title}
+              allowFullScreen
+            />
           ) : (
-            <p className="text-center text-gray-500">No videos found</p>
+            <p className="text-red-500">Invalid YouTube Link</p>
+          )}
+
+          <a
+            href={video.videoUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="block mt-2 text-center font-semibold"
+          >
+            {video.title}
+          </a>
+
+          {isAdmin && (
+            <div className="flex justify-between mt-3">
+              <button
+                onClick={() => openEdit(video)}
+                className="bg-blue-500 text-white px-3 py-1 rounded"
+              >
+                Edit
+              </button>
+
+              <button
+                onClick={() => handleDelete(video._id)}
+                className="bg-red-500 text-white px-3 py-1 rounded"
+              >
+                Delete
+              </button>
+            </div>
           )}
         </div>
+      );
+    })
+  ) : (
+    <p className="text-center text-gray-500 w-full py-6">
+      No videos found
+    </p>
+  )}
+</div>
       </div>
 
       {/* MODAL */}

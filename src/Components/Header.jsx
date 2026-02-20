@@ -73,7 +73,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Hamburger */}
-        <div className="md:hidden flex items-center">
+        {/* <div className="md:hidden flex items-center">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="text-white focus:outline-none"
@@ -86,57 +86,45 @@ const Header = () => {
               )}
             </svg>
           </button>
-        </div>
+        </div> */}
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-gradient-to-r from-red-600 to-black px-2 pt-2 pb-4 space-y-1">
-          {[{ name: "Home", link: "/" },
-            { name: "Latest News", link: "/latestNews" },
-            { name: "Result", link: "/result" },
-            { name: "Vacancy", link: "/vacancy" },
-            { name: "Contact", link: "/contact" }].map((item, idx) => (
-            <Link
-              key={idx}
-              to={item.link}
-              onClick={() => setMenuOpen(false)}
-              className="block text-white py-2 px-3 rounded hover:bg-blue-500 hover:text-white transition-all duration-200"
-            >
-              {item.name}
-            </Link>
-          ))}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-black text-white flex justify-between items-center px-4 py-2 border-t border-gray-600 z-50">
 
-          <div className="flex items-center space-x-2 mt-2">
-            <img src={flag} alt="india-flag" className="h-6 w-auto" />
+  {/* LEFT: Tabs */}
+  <div className="flex gap-4 text-sm">
+    <Link to="/">Home</Link>
+    <Link to="/latestNews">News</Link>
+    <Link to="/result">Result</Link>
+    <Link to="/vacancy">Jobs</Link>
+    <Link to="/contact">Contact</Link>
+  </div>
 
-            {token ? (
-              <button
-                onClick={() => { handleLogout(); setMenuOpen(false); }}
-                className="text-white px-4 py-2 rounded border border-red-500 font-bold text-sm hover:bg-red-500 hover:text-white transition"
-              >
-                Logout
-              </button>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="text-white px-4 py-2 rounded border-blue-400 border font-bold text-sm"
-                >
-                  Log in
-                </Link>
-                <Link
-                  to="/register"
-                  className="text-blue-350 hover:text-blue-700 bg-green-200 px-4 py-2 rounded border-blue-700 border transition-all duration-200 font-bold text-sm flex items-center gap-1"
-                >
-                  Sign up
-                  <img src={arrow} className="h-4 w-auto" alt="arrow" />
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+  {/* RIGHT: Auth Button */}
+  <div className="relative">
+    <button
+      onClick={() => setMenuOpen(!menuOpen)}
+      className="border-l border-gray-500 pl-3"
+    >
+      {token ? "Account" : "Login"}
+    </button>
+
+    {/* DROPDOWN */}
+    {menuOpen && (
+      <div className="absolute right-0 bottom-full mb-2 bg-white text-black rounded shadow-md p-2 flex flex-col gap-2 min-w-[120px]">
+        {token ? (
+          <button onClick={()=>{handleLogout(); setMenuOpen(false);}} className="text-red-500">Logout</button>
+        ) : (
+          <>
+            <Link to="/login" onClick={()=>setMenuOpen(false)}>Login</Link>
+            <Link to="/register" onClick={()=>setMenuOpen(false)}>Register</Link>
+          </>
+        )}
+      </div>
+    )}
+  </div>
+</div>
     </nav>
   );
 };

@@ -20,7 +20,7 @@ const Login = () => {
         `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
         form
       );
-       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.user.role);
       localStorage.setItem("userId", res.data.user.id);
       alert("Login successful");

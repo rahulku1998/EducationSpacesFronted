@@ -13,7 +13,7 @@ const TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
 const WhatsNewSection = () => {
   const [items, setItems] = useState([]);
   const [paused, setPaused] = useState(false);
-
+const [loading, setLoading] = useState(true);
   // 🔥 ADMIN
   const role = localStorage.getItem("role");
   const isAdmin = role === "ADMIN";
@@ -29,9 +29,18 @@ const WhatsNewSection = () => {
   }, []);
 
   const fetchItems = async () => {
+  try {
+    setLoading(true);
+
     const res = await getWhatsNew();
     setItems(res.data);
-  };
+
+  } catch (err) {
+    console.error("Error fetching WhatsNew", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const isNew = (createdAt) => {
     return Date.now() - new Date(createdAt).getTime() <= TWO_DAYS;
@@ -93,42 +102,48 @@ const WhatsNewSection = () => {
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
       >
-        <ul className={`space-y-3 animate-scroll-up ${paused ? "paused" : ""}`}>
-          {items.map((item) => (
-            <li key={item._id} className="flex justify-between">
-              <div className="flex gap-2 items-center">
-                {item.link.startsWith("http") ? (
-                  <a href={item.link} target="_blank" rel="noreferrer">
-                    {item.title}
-                  </a>
-                ) : (
-                  <Link to={item.link}>{item.title}</Link>
-                )}
+        {loading ? (
+  <div className="text-center py-6">Loading...</div>
+) : items.length === 0 ? (
+  <div className="text-center py-6">No updates</div>
+) : (
+  <ul className={`space-y-3 animate-scroll-up ${paused ? "paused" : ""}`}>
+    {items.map((item) => (
+      <li key={item._id} className="flex justify-between">
+        <div className="flex gap-2 items-center">
+          {item.link.startsWith("http") ? (
+            <a href={item.link} target="_blank" rel="noreferrer">
+              {item.title}
+            </a>
+          ) : (
+            <Link to={item.link}>{item.title}</Link>
+          )}
 
-                {isNew(item.createdAt) && (
-                  <span className="bg-red-600 text-xs px-2 rounded">NEW</span>
-                )}
-              </div>
+          {isNew(item.createdAt) && (
+            <span className="bg-red-600 text-xs px-2 rounded">NEW</span>
+          )}
+        </div>
 
-              {isAdmin && (
-                <div className="flex gap-2 text-sm">
-                  <button
-                    onClick={() => openEdit(item)}
-                    className="text-yellow-400"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item._id)}
-                    className="text-red-500"
-                  >
-                    Delete
-                  </button>
-                </div>
-              )}
-            </li>
-          ))}
-        </ul>
+        {isAdmin && (
+          <div className="flex gap-2 text-sm">
+            <button
+              onClick={() => openEdit(item)}
+              className="text-yellow-400"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => handleDelete(item._id)}
+              className="text-red-500"
+            >
+              Delete
+            </button>
+          </div>
+        )}
+      </li>
+    ))}
+  </ul>
+)}
       </div>
 
       {/* 🔥 MODAL */}
