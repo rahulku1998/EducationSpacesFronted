@@ -32,7 +32,8 @@ function App() {
     <>
         <DynamicPromo ad={adData} />
       <Header/>
-      <Routes>
+      <div className="pb-16 md:pb-0">
+                <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/latestNews' element={<LatestNews/>}/>
         <Route path='/result' element={<Result/>}/>
@@ -45,7 +46,8 @@ function App() {
         <Route path="/edit-news/:id" element={<EditNews />} />
         <Route path='/vacancy/:slug' element={<VacancyDetails/>}/>
       </Routes>
-      <Footer/>
+        </div>
+      <Footer className="pb-16 md:pb-0"/>
     </>
   )
 }
