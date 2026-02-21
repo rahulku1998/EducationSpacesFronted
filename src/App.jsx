@@ -38,6 +38,7 @@ function App() {
         <Route path='/latestNews' element={<LatestNews/>}/>
         <Route path='/result' element={<Result/>}/>
         <Route path='/vacancy' element={<Vacancy/>}/>
+        <Route path="/news/preview/:id" element={<NewsPage />}/>
         <Route path='/contact' element={<Contact/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path="/news/:id" element={<NewsPage />}/>
