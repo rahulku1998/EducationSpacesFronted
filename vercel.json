@@ -1,7 +1,12 @@
 {
   "rewrites": [
-    { "source": "/news/preview/:id", "destination": "/api/news/preview/:id" },
-    { "source": "/news/(.*)", "destination": "/api/news/$1" },
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/news/preview/:id",
+      "destination": "https://education-spaces-backend.onrender.com/api/news/preview/:id"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ]
 }
