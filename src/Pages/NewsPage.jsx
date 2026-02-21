@@ -42,7 +42,7 @@ const NewsPage = () => {
   };
 
   const handleShare = async () => {
-  const shareUrl = `https://education-spaces-backend.onrender.com/api/news/preview/${news._id}`;
+  const shareUrl = `https://educationspaces.in/news/${news._id}`;
 
   try {
     if (navigator.share) {
