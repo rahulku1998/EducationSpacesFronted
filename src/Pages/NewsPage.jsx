@@ -42,23 +42,23 @@ const NewsPage = () => {
   };
 
   const handleShare = async () => {
-    const shareUrl =  `https://educationspaces.in/news/preview/${news._id}`;
+  const shareUrl = `https://education-spaces-backend.onrender.com/api/news/preview/${news._id}`;
 
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: news.title,
-          text: news.summary,
-          url: shareUrl,
-        });
-      } else {
-        await navigator.clipboard.writeText(shareUrl);
-        alert("Link copied to clipboard!");
-      }
-    } catch (error) {
-      console.error("Share failed:", error);
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: news.title,
+        text: news.summary,
+        url: shareUrl,
+      });
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+      alert("Link copied to clipboard!");
     }
-  };
+  } catch (error) {
+    console.error("Share failed:", error);
+  }
+};
 
   if (!news) return <p className="p-6">Loading...</p>;
 
