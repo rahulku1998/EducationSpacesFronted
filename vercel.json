@@ -1,9 +1,12 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/news/preview/:id",
-      "destination": "https://education-spaces-backend.onrender.com/api/news/preview/:id"
-    },
+      "destination": "https://education-spaces-backend.onrender.com/api/news/preview/:id",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/"
