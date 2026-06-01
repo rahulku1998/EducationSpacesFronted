@@ -37,7 +37,7 @@ const ContactUs = () => {
       {/* MESSAGE FROM DIRECTOR */}
       <section className="bg-white shadow-lg rounded-xl p-6 sm:p-8 mb-10">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-6 text-center md:text-left">
-          Message from Director Sunil Doraya
+          Message from Director Kunal Bhatnagar
         </h2>
 
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
